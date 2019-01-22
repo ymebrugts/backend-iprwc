@@ -1,17 +1,39 @@
 package nl.iprwc.model;
 
-import java.util.List;
+import javax.persistence.*;
 
-public class Item {
+import java.util.List;
+@Entity
+@Table(name = "item")
+public class Product {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name", length=100, nullable = false)
     private String name;
+
+    @Column(name = "description", length = 500, nullable = false)
     private String description;
+
+    @Column(name = "price_cents", nullable = false)
     private int price_cents;
 
-    public Item (String name, String description, int price_cents) {
+    /**
+     * A no-argument constructor.
+     */
+    public Product() {
+    }
+
+
+    public Product(String name, String description, int price_cents) {
         this.name = name;
         this.description = description;
         this.price_cents = price_cents;
     }
+
 
     public String getName() {
         return name;

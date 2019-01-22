@@ -1,34 +1,51 @@
 package nl.iprwc;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
-import nl.iprwc.persistence.ItemDao;
-import nl.iprwc.resources.ItemResource;
-import nl.iprwc.service.ItemService;
-import nl.iprwc.util.DatabaseConnection;
+import io.dropwizard.db.DataSourceFactory;
+import nl.iprwc.persistence.ProductDAO;
+import nl.iprwc.resources.ProductResource;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 public class ApiConfiguration extends Configuration {
     // TODO: implement service configuration
-    DatabaseConnection database;
-    ItemDao itemDao;
-    ItemService itemService;
+    ProductDAO productDao;
+    @Valid
+    @NotNull
+    private DataSourceFactory dataSourceFactory = new DataSourceFactory();
+
 
     public ApiConfiguration() {
-        createDatabase();
-        itemDao = new ItemDao(database);
-        itemService = new ItemService(itemDao);
+
+//        productDao = new ProductDAO(database);
+//        productService = new ProductService(productDao);
     }
 
-    public void createDatabase() {
-        database = new DatabaseConnection();
-    }
-
-    public DatabaseConnection getDatabaseConnection() {
-        return database;
-    }
-
-
-
-    public ItemResource getItemResource() {
-            return new ItemResource(itemService);
+    /**
+     * A getter for the database factory.
+     *
+     * @return An instance of database factory deserialized from the
+     * configuration file passed as a command-line argument to the application.
+     */
+    @JsonProperty("database")
+    public DataSourceFactory getDataSourceFactory() {
+        return dataSourceFactory;
     }
 }
+
+//    public void createDatabase() {
+//        database = new DatabaseConnection();
+//    }
+
+//    public DatabaseConnection getDatabaseConnection() {
+//        return database;
+//    }
+
+
+
+//    public ProductResource getProductResource() {
+//            return new ProductResource(productService);
+//    }
+//}

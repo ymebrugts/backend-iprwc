@@ -16,26 +16,6 @@ public class DatabaseConnection {
      * With this we can create a connection with the database
      * @author Yme Brugts
      */
-    public void connect(){
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        try {
-            conn = DriverManager.getConnection(this.url, this.user, this.pass);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (conn != null) {
-            System.out.println("Database is connected.");
-        } else {
-            System.out.println("Couldn't connect with the database.");
-        }
-    }
 
     public Connection newConnection() throws SQLException {
         System.out.println("Connected");
