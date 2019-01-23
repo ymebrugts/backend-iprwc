@@ -49,7 +49,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
 //        databaseConnection = configuration.getDatabaseConnection();
 
 //        environment.jersey().register(configuration.getProductResource());
-//        configureCors(environment);
+        configureCors(environment);
 
 //        environment.jersey().register(configuration.getLocationDaoResource());
 //        environment.jersey().register(configuration.getAccountDaoResource());

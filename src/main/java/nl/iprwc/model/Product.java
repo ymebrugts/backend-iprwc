@@ -28,12 +28,20 @@ public class Product {
     }
 
 
-    public Product(String name, String description, int price_cents) {
+    public Product(int id, String name, String description, int price_cents) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price_cents = price_cents;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setName(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
