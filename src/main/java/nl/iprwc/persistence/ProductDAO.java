@@ -1,14 +1,11 @@
 package nl.iprwc.persistence;
+
 import io.dropwizard.hibernate.AbstractDAO;
-import io.dropwizard.hibernate.SessionFactoryFactory;
 import nl.iprwc.model.Product;
-import nl.iprwc.util.DatabaseConnection;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO extends AbstractDAO<Product> {

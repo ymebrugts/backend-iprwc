@@ -6,8 +6,11 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import nl.iprwc.model.Account;
 import nl.iprwc.model.Product;
+import nl.iprwc.persistence.AccountDAO;
 import nl.iprwc.persistence.ProductDAO;
+import nl.iprwc.resources.AccountResource;
 import nl.iprwc.resources.ProductResource;
 import nl.iprwc.util.DatabaseConnection;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -45,7 +48,9 @@ public class ApiApplication extends Application<ApiConfiguration> {
         // TODO: implement application
 
         final ProductDAO productDAO = new ProductDAO(hibernateBundle.getSessionFactory());
+        final AccountDAO accountDAO = new AccountDAO(hibernateBundle.getSessionFactory());
         environment.jersey().register(new ProductResource(productDAO));
+        environment.jersey().register(new AccountResource(accountDAO));
 //        databaseConnection = configuration.getDatabaseConnection();
 
 //        environment.jersey().register(configuration.getProductResource());
@@ -77,13 +82,16 @@ public class ApiApplication extends Application<ApiConfiguration> {
      * Hibernate bundle.
      */
     private final HibernateBundle<ApiConfiguration> hibernateBundle
-            = new HibernateBundle<ApiConfiguration>(Product.class) {
+            = new HibernateBundle<ApiConfiguration>(Account.class, Product.class) {
 
         @Override
         public DataSourceFactory getDataSourceFactory(ApiConfiguration configuration) {
             return configuration.getDataSourceFactory();
         }
     };
+
+
+
 
 
 }

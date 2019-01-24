@@ -1,9 +1,9 @@
 CREATE TABLE product (
-                    id SERIAL PRIMARY KEY,
-                    name VARCHAR(100) NOT NULL,
-                    description VARCHAR(500) NOT NULL,
-                    price_cents INTEGER NOT NULL
-                    --Add: In stock 0/1  and deleted 0/1
+                       id SERIAL PRIMARY KEY,
+                       name VARCHAR(100) NOT NULL,
+                       description VARCHAR(500) NOT NULL,
+                       price_cents INTEGER NOT NULL
+  --Add: In stock 0/1  and deleted 0/1
 );
 
 CREATE TABLE account (
@@ -21,14 +21,14 @@ CREATE TABLE location (
 );
 
 CREATE TABLE cart_item (
-                      account_email VARCHAR(100) REFERENCES account (email) ON DELETE CASCADE ON UPDATE CASCADE,
-                      product_id INTEGER UNIQUE NOT NULL REFERENCES item (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-                      amount INTEGER NOT NULL
-)
+                         account_email VARCHAR(100) REFERENCES account (email) ON DELETE CASCADE ON UPDATE CASCADE,
+                         product_id INTEGER UNIQUE NOT NULL REFERENCES product (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+                         amount INTEGER NOT NULL
+);
 
 CREATE TABLE orderhistory (
-                      id SERIAL PRIMARY KEY,
-                      account_email VARCHAR(100) REFERENCES account (email) NOT NULL ON DELETE CASCADE ON UPDATE CASCADE,
-                      product_id INTEGER REFERENCES prodduct (id) NOT NULL ON DELETE RESTRICT ON UPDATE CASCADE,
-                      amount INTEGER
+                            id SERIAL PRIMARY KEY,
+                            account_email VARCHAR(100) NOT NULL REFERENCES account (email)ON DELETE CASCADE ON UPDATE CASCADE,
+                            product_id INTEGER NOT NULL REFERENCES product (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+                            amount INTEGER
 )
