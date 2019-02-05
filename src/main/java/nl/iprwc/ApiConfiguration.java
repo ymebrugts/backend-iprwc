@@ -11,43 +11,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public class ApiConfiguration extends Configuration {
-    // TODO: implement service configuration
-    ProductDAO productDao;
-    AccountDAO accountDAO;
+
     @Valid
     @NotNull
-    private DataSourceFactory dataSourceFactory = new DataSourceFactory();
-
-
-    public ApiConfiguration() {
-
-//        productDao = new ProductDAO(database);
-//        productService = new ProductService(productDao);
-    }
-
-    /**
-     * A getter for the database factory.
-     *
-     * @return An instance of database factory deserialized from the
-     * configuration file passed as a command-line argument to the application.
-     */
     @JsonProperty("database")
+    private DataSourceFactory database = new DataSourceFactory();
+
     public DataSourceFactory getDataSourceFactory() {
-        return dataSourceFactory;
+        return database;
     }
+
 }
-
-//    public void createDatabase() {
-//        database = new DatabaseConnection();
-//    }
-
-//    public DatabaseConnection getDatabaseConnection() {
-//        return database;
-//    }
-
-
-
-//    public ProductResource getProductResource() {
-//            return new ProductResource(productService);
-//    }
-//}

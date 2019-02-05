@@ -28,7 +28,6 @@ import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
 import java.util.EnumSet;
 
-//https://www.dropwizard.io/0.9.1/docs/getting-started.html
 public class ApiApplication extends Application<ApiConfiguration> {
 
     public static void main(final String[] args) throws Exception {
@@ -42,14 +41,12 @@ public class ApiApplication extends Application<ApiConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<ApiConfiguration> bootstrap) {
-        // TODO: application initialization
         bootstrap.addBundle(hibernateBundle);
     }
 
     @Override
     public void run(final ApiConfiguration configuration,
                     final Environment environment) {
-        // TODO: implement application
 
         final ProductDAO productDAO = new ProductDAO(hibernateBundle.getSessionFactory());
         final AccountDAO accountDAO = new AccountDAO(hibernateBundle.getSessionFactory());
@@ -104,9 +101,6 @@ public class ApiApplication extends Application<ApiConfiguration> {
     }
 
 
-    /**
-     * Hibernate bundle.
-     */
     private final HibernateBundle<ApiConfiguration> hibernateBundle
             = new HibernateBundle<ApiConfiguration>(
                     Account.class,
@@ -119,9 +113,5 @@ public class ApiApplication extends Application<ApiConfiguration> {
             return configuration.getDataSourceFactory();
         }
     };
-
-
-
-
 
 }
