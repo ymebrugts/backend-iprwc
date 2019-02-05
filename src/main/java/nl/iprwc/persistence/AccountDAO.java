@@ -30,6 +30,10 @@ public class AccountDAO extends AbstractDAO<Account> {
         return currentSession().get(Account.class, email);
     }
 
+    public void evictAccount(Account account) {
+        currentSession().evict(account);
+    }
+
     public void delete(Account account) {
         currentSession().delete(account);
     }

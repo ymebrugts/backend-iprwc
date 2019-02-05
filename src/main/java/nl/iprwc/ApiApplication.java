@@ -2,10 +2,15 @@ package nl.iprwc;
 
 
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.hibernate.UnitOfWorkAwareProxyFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import nl.iprwc.auth.AuthManager;
 import nl.iprwc.model.Account;
 import nl.iprwc.model.Deliver;
 import nl.iprwc.model.Location;
@@ -14,12 +19,9 @@ import nl.iprwc.persistence.AccountDAO;
 import nl.iprwc.persistence.DeliverDAO;
 import nl.iprwc.persistence.LocationDAO;
 import nl.iprwc.persistence.ProductDAO;
-import nl.iprwc.resources.AccountResource;
-import nl.iprwc.resources.DeliverResource;
-import nl.iprwc.resources.LocationResource;
-import nl.iprwc.resources.ProductResource;
-import nl.iprwc.util.DatabaseConnection;
+import nl.iprwc.resources.*;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -27,11 +29,6 @@ import java.util.EnumSet;
 
 //https://www.dropwizard.io/0.9.1/docs/getting-started.html
 public class ApiApplication extends Application<ApiConfiguration> {
-
-    private static DatabaseConnection databaseConnection;
-    public static DatabaseConnection getDatabaseConnection() {
-        return databaseConnection;
-    }
 
     public static void main(final String[] args) throws Exception {
         new ApiApplication().run(args);
@@ -63,6 +60,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(new DeliverResource(deliverDAO));
 
         configureCors(environment);
+        setupAuthentication(environment, accountDAO);
     }
 
 
@@ -79,6 +77,25 @@ public class ApiApplication extends Application<ApiConfiguration> {
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
+    }
+
+    private void setupAuthentication(Environment environment, AccountDAO dao) {
+        UnitOfWorkAwareProxyFactory proxy = new UnitOfWorkAwareProxyFactory(hibernateBundle);
+        AuthManager manager = proxy.
+                create(AuthManager.class,
+                        AccountDAO.class,
+                        dao);
+
+        environment.jersey().register(LoginResource.class);
+        environment.jersey().register(new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<Account>()
+                        .setAuthenticator(manager)
+                        .setRealm("main")
+                        .buildAuthFilter()));
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+
+        // If you want to use @Auth to inject a custom Principal type into your resource
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(Account.class));
     }
 
 
