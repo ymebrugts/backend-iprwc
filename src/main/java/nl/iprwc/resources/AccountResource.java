@@ -15,13 +15,9 @@ public class AccountResource {
 
     private AccountDAO accountDAO;
 
-
-
-    public AccountResource(AccountDAO accountDAO)
-    {
+    public AccountResource(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;
     }
-
 
     @GET
     @UnitOfWork

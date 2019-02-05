@@ -19,13 +19,9 @@ public class ProductResource {
 
     private ProductDAO productDAO;
 
-
-
-    public ProductResource(ProductDAO productDAO)
-    {
+    public ProductResource(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
-
 
     @GET
     @UnitOfWork

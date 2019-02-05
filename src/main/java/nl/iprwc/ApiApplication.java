@@ -7,10 +7,16 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import nl.iprwc.model.Account;
+import nl.iprwc.model.Deliver;
+import nl.iprwc.model.Location;
 import nl.iprwc.model.Product;
 import nl.iprwc.persistence.AccountDAO;
+import nl.iprwc.persistence.DeliverDAO;
+import nl.iprwc.persistence.LocationDAO;
 import nl.iprwc.persistence.ProductDAO;
 import nl.iprwc.resources.AccountResource;
+import nl.iprwc.resources.DeliverResource;
+import nl.iprwc.resources.LocationResource;
 import nl.iprwc.resources.ProductResource;
 import nl.iprwc.util.DatabaseConnection;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -49,16 +55,14 @@ public class ApiApplication extends Application<ApiConfiguration> {
 
         final ProductDAO productDAO = new ProductDAO(hibernateBundle.getSessionFactory());
         final AccountDAO accountDAO = new AccountDAO(hibernateBundle.getSessionFactory());
+        final LocationDAO locationDAO = new LocationDAO(hibernateBundle.getSessionFactory());
+        final DeliverDAO deliverDAO = new DeliverDAO(hibernateBundle.getSessionFactory());
         environment.jersey().register(new ProductResource(productDAO));
         environment.jersey().register(new AccountResource(accountDAO));
-//        databaseConnection = configuration.getDatabaseConnection();
+        environment.jersey().register(new LocationResource(locationDAO));
+        environment.jersey().register(new DeliverResource(deliverDAO));
 
-//        environment.jersey().register(configuration.getProductResource());
         configureCors(environment);
-
-//        environment.jersey().register(configuration.getLocationDaoResource());
-//        environment.jersey().register(configuration.getAccountDaoResource());
-//        environment.jersey().register(configuration.getBasketDaoResource());
     }
 
 
@@ -82,7 +86,11 @@ public class ApiApplication extends Application<ApiConfiguration> {
      * Hibernate bundle.
      */
     private final HibernateBundle<ApiConfiguration> hibernateBundle
-            = new HibernateBundle<ApiConfiguration>(Account.class, Product.class) {
+            = new HibernateBundle<ApiConfiguration>(
+                    Account.class,
+                    Product.class,
+                    Location.class,
+                    Deliver.class) {
 
         @Override
         public DataSourceFactory getDataSourceFactory(ApiConfiguration configuration) {

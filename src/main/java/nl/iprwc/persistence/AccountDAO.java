@@ -1,5 +1,6 @@
 package nl.iprwc.persistence;
 import io.dropwizard.hibernate.AbstractDAO;
+import nl.iprwc.auth.PasswordManager;
 import nl.iprwc.model.Account;
 import org.hibernate.SessionFactory;
 
@@ -38,6 +39,7 @@ public class AccountDAO extends AbstractDAO<Account> {
     }
 
     public Account insert(Account account) {
+        account.setPassword(PasswordManager.getInstance().hash(account.getPassword()));
         return persist(account);
     }
 
