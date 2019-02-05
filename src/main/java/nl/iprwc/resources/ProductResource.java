@@ -2,7 +2,10 @@ package nl.iprwc.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
+import nl.iprwc.auth.AuthChecker;
+import nl.iprwc.model.Account;
 import nl.iprwc.model.Product;
 import nl.iprwc.persistence.ProductDAO;
 import org.hibernate.annotations.DynamicInsert;
@@ -12,6 +15,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/product")
 @Produces(MediaType.APPLICATION_JSON)
@@ -55,7 +59,11 @@ public class ProductResource {
     @DELETE
     @Path("/{id}")
     @UnitOfWork
-    public void delete(@PathParam("id") int id) {
+    public void delete(@Auth Optional<Account> credentials,
+                       @PathParam("id") int id) {
+        if (!AuthChecker.goodAdmin(credentials)) {
+            return;
+        }
         productDAO.delete(productDAO.findById(id));
     }
 }

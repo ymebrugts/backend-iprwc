@@ -21,6 +21,7 @@ import nl.iprwc.persistence.LocationDAO;
 import nl.iprwc.persistence.ProductDAO;
 import nl.iprwc.resources.*;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
@@ -61,6 +62,10 @@ public class ApiApplication extends Application<ApiConfiguration> {
 
         configureCors(environment);
         setupAuthentication(environment, accountDAO);
+
+        // Setup image uploading
+        environment.jersey().register(MultiPartFeature.class);
+        environment.jersey().register(ImageUploadResource.class);
     }
 
 

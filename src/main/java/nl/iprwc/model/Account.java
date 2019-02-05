@@ -20,7 +20,7 @@ public class Account implements Principal {
 
     @JsonProperty
     @Column(name = "is_admin", nullable = false)
-    private boolean is_admin;
+    private boolean isAdmin;
 
     public String getPassword() {
         return password;
@@ -28,6 +28,14 @@ public class Account implements Principal {
 
     public String getName() {
         return email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
     public void setPassword(String password) {

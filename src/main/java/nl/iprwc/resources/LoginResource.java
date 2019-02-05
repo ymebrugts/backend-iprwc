@@ -5,11 +5,11 @@ import nl.iprwc.auth.PasswordManager;
 import nl.iprwc.model.Account;
 import nl.iprwc.persistence.AccountDAO;
 
-import javax.ws.rs.NotAuthorizedException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
+@Path("/login")
+@Produces(MediaType.APPLICATION_JSON)
 public class LoginResource {
 
     AccountDAO accountDAO;
