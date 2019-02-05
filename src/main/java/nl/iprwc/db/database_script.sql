@@ -19,7 +19,7 @@ CREATE TABLE location (
 	city VARCHAR(50) NOT NULL
 );
 	
-CREATE TABLE orders (
+CREATE TABLE deliver (
   account_email VARCHAR 100 REFERENCES account(email) ON DELETE RESTRICT NOT NULL,
   product_id INTEGER REFERENCES item(id) NOT NULL,
   amount INTEGER NOT NULL
