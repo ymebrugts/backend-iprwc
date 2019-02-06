@@ -27,4 +27,13 @@ public class Product {
     @Column(name = "price_cents", nullable = false)
     private int priceCents;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", priceCents=" + priceCents +
+                '}';
+    }
 }

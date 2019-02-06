@@ -55,11 +55,12 @@ public class ProductResource {
     @Path("/{id}")
     @UnitOfWork
     public Product update(@Auth Optional<Account> account,
-                          @PathParam("id") int id, @Valid Product product) {
+                          @PathParam("id") int id,
+                          @Valid Product product) {
         if (!AuthChecker.goodAdmin(account)) {
             throw new NotAuthorizedException("");
         }
-        product = productDAO.findById(id);
+        System.out.println(product.toString());
         productDAO.update(product);
         return product;
     }
