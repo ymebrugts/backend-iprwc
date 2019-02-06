@@ -1,12 +1,11 @@
-# Api
+# Backend API for frontend-iprwc
+See: https://github.com/ymebrugts/frontend-iprwc
 
-How to start the Api application
----
-## Prerequisites
+# Prerequisites
 Needs Java 8
 Use database_script.sql to create database first
 
-## Instructions
+# Running Instructions
 1. Run `mvn clean install` to build your application
 2. Set up the required environment variables:
    ```
