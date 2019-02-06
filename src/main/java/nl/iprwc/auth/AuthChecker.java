@@ -7,7 +7,7 @@ import java.util.Optional;
 public class AuthChecker {
 
     public static boolean goodUser(Optional<Account> account, String email) {
-        return (account.isPresent() && account.get().getEmail() == email);
+        return (account.isPresent() && account.get().getEmail().equals(email));
     }
 
     public static boolean goodAdmin(Optional<Account> account) {

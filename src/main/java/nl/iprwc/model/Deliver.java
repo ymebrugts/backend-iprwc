@@ -30,8 +30,20 @@ public class Deliver implements Serializable {
     @JsonProperty
     private int amount;
 
+    public int getProductId() {
+        return productId;
+    }
+
     public String getAccountEmail() {
         return accountEmail;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
 }

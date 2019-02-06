@@ -15,10 +15,11 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Path("/deliver")
+@Path("/delivery")
 @Produces(MediaType.APPLICATION_JSON)
 public class DeliverResource {
 
@@ -45,13 +46,18 @@ public class DeliverResource {
 
     @POST
     @UnitOfWork
-    public Deliver add(@Auth Optional<Account> account,
-                       @Valid Deliver deliver) {
-        if (!AuthChecker.goodUser(account, deliver.getAccountEmail())) {
-            throw new NotAuthorizedException("");
+    public List<Deliver> add(@Auth Optional<Account> account,
+                             @Valid List<Deliver> deliveries) {
+        for (Deliver d : deliveries) {
+            if (!AuthChecker.goodUser(account, d.getAccountEmail())) {
+                System.out.println("alkwhjdaklwdjahwdjh");
+                System.out.println(account.toString());
+                System.out.println(d.getAccountEmail());
+                throw new NotAuthorizedException("");
+            }
         }
-        Deliver newDeliver = deliverDAO.insert(deliver);
-        return newDeliver;
+        List<Deliver> newDeliveries = deliverDAO.merge(deliveries);
+        return newDeliveries;
     }
 
     /*
