@@ -20,7 +20,7 @@ CREATE TABLE location (
 );
 	
 CREATE TABLE deliver (
-  account_email VARCHAR(100) REFERENCES account(email) ON DELETE RESTRICT NOT NULL,
+  account_email VARCHAR(100) REFERENCES account(email) ON DELETE CASCADE NOT NULL,
   product_id INTEGER REFERENCES product(id) NOT NULL,
   amount INTEGER NOT NULL
 );
