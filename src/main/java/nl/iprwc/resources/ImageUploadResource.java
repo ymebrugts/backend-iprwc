@@ -22,7 +22,6 @@ public class ImageUploadResource {
     public boolean uploadFile(@Auth Optional<Account> account,
                               @FormDataParam("file") InputStream uploadedInputStream,
                               @FormDataParam("filename") String fileName) {
-        // TODO: fileUploadLocation should come from config.yml
         if (!AuthChecker.goodAdmin(account) || !fileName.endsWith(".png")) {
             return false;
         }

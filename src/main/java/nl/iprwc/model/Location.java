@@ -14,7 +14,7 @@ public class Location {
     @Id
     @JsonProperty
     @Column(name = "account_email", length = 100, nullable = false)
-    private int accountEmail;
+    private String accountEmail;
 
     @JsonProperty
     @Column(name = "street_name", length = 100, nullable = false)
@@ -32,4 +32,7 @@ public class Location {
     @Column(name = "city", length = 50, nullable = false)
     private String city;
 
+    public String getAccountEmail() {
+        return accountEmail;
+    }
 }

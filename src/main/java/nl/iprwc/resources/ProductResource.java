@@ -42,7 +42,11 @@ public class ProductResource {
 
     @POST
     @UnitOfWork
-    public Product add(@Valid Product product) {
+    public Product add(@Auth Optional<Account> account,
+                       @Valid Product product) {
+        if (!AuthChecker.goodAdmin(account)) {
+            throw new NotAuthorizedException("");
+        }
         Product newProduct = productDAO.insert(product);
         return newProduct;
     }
@@ -50,7 +54,11 @@ public class ProductResource {
     @PUT
     @Path("/{id}")
     @UnitOfWork
-    public Product update(@PathParam("id") int id, @Valid Product product) {
+    public Product update(@Auth Optional<Account> account,
+                          @PathParam("id") int id, @Valid Product product) {
+        if (!AuthChecker.goodAdmin(account)) {
+            throw new NotAuthorizedException("");
+        }
         product = productDAO.findById(id);
         productDAO.update(product);
         return product;
@@ -62,7 +70,7 @@ public class ProductResource {
     public void delete(@Auth Optional<Account> credentials,
                        @PathParam("id") int id) {
         if (!AuthChecker.goodAdmin(credentials)) {
-            return;
+            throw new NotAuthorizedException("");
         }
         productDAO.delete(productDAO.findById(id));
     }

@@ -30,4 +30,8 @@ public class Deliver implements Serializable {
     @JsonProperty
     private int amount;
 
+    public String getAccountEmail() {
+        return accountEmail;
+    }
+
 }

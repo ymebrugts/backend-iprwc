@@ -19,26 +19,32 @@ public class AccountResource {
         this.accountDAO = accountDAO;
     }
 
+    /*
     @GET
     @UnitOfWork
     public List<Account> getAllAccounts() {
         return accountDAO.findAll();
     }
+    */
 
+    /*
     @GET
     @Path("/{email}")
     @UnitOfWork
     public Account get(@PathParam("email") String email) {
         return accountDAO.findByEmail(email);
     }
+    */
 
     @POST
     @UnitOfWork
     public Account add(@Valid Account account) {
+        account.setAdmin(false);
         Account newAccount = accountDAO.insert(account);
         return newAccount;
     }
 
+    /*
     @PUT
     @Path("/{email}")
     @UnitOfWork
@@ -47,11 +53,14 @@ public class AccountResource {
         accountDAO.update(account);
         return account;
     }
+    */
 
+    /*
     @DELETE
     @Path("/{email}")
     @UnitOfWork
     public void delete(@PathParam("email") String email) {
         accountDAO.delete(accountDAO.findByEmail(email));
     }
+    */
 }

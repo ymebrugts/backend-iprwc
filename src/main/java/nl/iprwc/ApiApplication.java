@@ -56,6 +56,7 @@ public class ApiApplication extends Application<ApiConfiguration> {
         environment.jersey().register(new AccountResource(accountDAO));
         environment.jersey().register(new LocationResource(locationDAO));
         environment.jersey().register(new DeliverResource(deliverDAO));
+        environment.jersey().register(new LoginResource(accountDAO));
 
         configureCors(environment);
         setupAuthentication(environment, accountDAO);

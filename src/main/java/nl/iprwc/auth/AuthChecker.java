@@ -11,6 +11,6 @@ public class AuthChecker {
     }
 
     public static boolean goodAdmin(Optional<Account> account) {
-        return (account.isPresent() && account.get().is_admin());
+        return (account.isPresent() && account.get().isAdmin());
     }
 }

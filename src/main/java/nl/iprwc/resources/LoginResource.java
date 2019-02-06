@@ -14,7 +14,7 @@ public class LoginResource {
 
     AccountDAO accountDAO;
 
-    LoginResource(AccountDAO accountDAO) {
+    public LoginResource(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;
     }
 
@@ -24,12 +24,17 @@ public class LoginResource {
     public Account login(@PathParam("email") String email,
                          String password) {
         Account account = accountDAO.findByEmail(email);
+        System.out.println(account.toString());
+        System.out.println("password:" + password);
         if (account != null) {
             boolean validPassword = PasswordManager.getInstance().verifyHash(password, account.getPassword());
             if (validPassword) {
+                System.out.println("Password is valid nigga");
                 accountDAO.evictAccount(account);
                 account.setPassword(null);
                 return account;
+            } else {
+                System.out.println("Password is INVALID nigga");
             }
         }
         throw new NotAuthorizedException("UNAUTHORIZED");
