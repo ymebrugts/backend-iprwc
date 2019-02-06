@@ -60,7 +60,6 @@ public class ProductResource {
         if (!AuthChecker.goodAdmin(account)) {
             throw new NotAuthorizedException("");
         }
-        System.out.println(product.toString());
         productDAO.update(product);
         return product;
     }

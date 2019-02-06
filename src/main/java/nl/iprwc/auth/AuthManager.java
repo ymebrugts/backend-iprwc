@@ -20,7 +20,6 @@ public class AuthManager implements Authenticator<BasicCredentials, Account> {
     @Override
     @UnitOfWork
     public Optional<Account> authenticate(BasicCredentials credentials) throws AuthenticationException {
-        System.out.println("getting the request nigga");
         String email = credentials.getUsername();
         String password = credentials.getPassword();
         Account account = accountDAO.findByEmail(email);

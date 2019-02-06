@@ -50,9 +50,6 @@ public class DeliverResource {
                              @Valid List<Deliver> deliveries) {
         for (Deliver d : deliveries) {
             if (!AuthChecker.goodUser(account, d.getAccountEmail())) {
-                System.out.println("alkwhjdaklwdjahwdjh");
-                System.out.println(account.toString());
-                System.out.println(d.getAccountEmail());
                 throw new NotAuthorizedException("");
             }
         }

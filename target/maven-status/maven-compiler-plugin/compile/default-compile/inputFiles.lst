@@ -13,7 +13,7 @@
 /home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/persistence/DeliverDAO.java
 /home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/persistence/LocationDAO.java
 /home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/resources/AccountResource.java
-/home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/model/Account.java
 /home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/model/Deliver.java
-/home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/persistence/ProductDAO.java
+/home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/model/Account.java
 /home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/resources/ImageUploadResource.java
+/home/anon/yme/backend-iprwc/src/main/java/nl/iprwc/persistence/ProductDAO.java
