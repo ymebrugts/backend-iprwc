@@ -1,7 +1,13 @@
-insert into product VALUES(DEFAULT, 'Thinkpad T480', 'Deze laptop is klein genoeg', 90);
-insert into product VALUES(DEFAULT, 'Thinkpad T580', 'Deze laptop is klein genoeg', 90);
-insert into product VALUES(DEFAULT, 'Thinkpad T680', 'Deze laptop is klein genoeg', 90);
+INSERT INTO product VALUES (DEFAULT, 'Marine Armor Mk I', 'Standard Terran infantry combat suit', 90);
+INSERT INTO product VALUES (DEFAULT, 'Siege Tank Chassis', 'Heavy armor platform for devastating firepower', 90);
+INSERT INTO product VALUES (DEFAULT, 'Battlecruiser Yamato Core', 'Flagship system with orbital strike capability', 90);
 
-insert into account VALUES('yme_brugts@hotmail.com', 'gebruiker123', 0);
-insert into account VALUES('money@cash.money', 'moneywachtwoord', 0);
-insert into account VALUES('yme@resolutionsbv.nl', 'admin123', 1);
+INSERT INTO account (email, password, is_admin)
+VALUES ('yme.brugts@example.com', 'User@12345', 0);
+
+INSERT INTO account (email, password, is_admin)
+VALUES ('finance@example.com', 'SecurePass!234', 0);
+
+INSERT INTO account (email, password, is_admin)
+VALUES ('admin@example.com', 'Admin@12345', 1);
+
