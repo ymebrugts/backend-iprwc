@@ -12,17 +12,10 @@ server:
       #keyStorePassword: ${KEY_STORE_PASSWORD}
 
 database:
-  # the name of your JDBC driver
   driverClass: org.postgresql.Driver
-
-  # the username
-  user: ${DB_USER:-postgres}
-
-  # the password
+  user: ${DB_USER}
   password: ${DB_PASSWORD}
-
-  # the JDBC URL
-  url: jdbc:postgresql://94.209.183.210:5432/yme
+  url: ${DB_URL}
 
   # any properties specific to your JDBC driver:
   properties:

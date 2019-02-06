@@ -1,6 +1,7 @@
 package nl.iprwc;
 
-
+import io.dropwizard.configuration.SubstitutingSourceProvider;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.Application;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
@@ -31,17 +32,27 @@ import java.util.EnumSet;
 public class ApiApplication extends Application<ApiConfiguration> {
 
     public static void main(final String[] args) throws Exception {
+        System.out.println("DB_URL = " + System.getenv("DB_URL"));
+
         new ApiApplication().run(args);
+    }
+
+    @Override
+    public void initialize(final Bootstrap<ApiConfiguration> bootstrap) {
+        // Enable ${ENV_VAR} substitution in config.yml
+        bootstrap.setConfigurationSourceProvider(
+                new SubstitutingSourceProvider(
+                        bootstrap.getConfigurationSourceProvider(),
+                        new EnvironmentVariableSubstitutor(false) // false = don't fail if a variable is missing
+                )
+        );
+
+        bootstrap.addBundle(hibernateBundle);
     }
 
     @Override
     public String getName() {
         return "Api";
-    }
-
-    @Override
-    public void initialize(final Bootstrap<ApiConfiguration> bootstrap) {
-        bootstrap.addBundle(hibernateBundle);
     }
 
     @Override
