@@ -25,6 +25,8 @@ public class ImageUploadResource {
         if (!AuthChecker.goodAdmin(account) || !fileName.endsWith(".png")) {
             return false;
         }
+        // String fileUploadLocation = "/home/anon/" + fileName;
+        // System.out.println(fileUploadLocation);
         String fileUploadLocation = "/var/www/html/.product_images/" + fileName;
         return writeToFile(uploadedInputStream, fileUploadLocation);
     }
