@@ -14,7 +14,7 @@ public class Account implements Principal {
     @Column(name = "email", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 32, nullable = false)
+    @Column(name = "password", length = 255, nullable = false)
     @JsonProperty
     private String password;
 
